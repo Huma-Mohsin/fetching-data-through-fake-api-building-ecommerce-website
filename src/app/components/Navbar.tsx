@@ -1,16 +1,25 @@
-// components/Navbar.tsx
-import React from 'react';
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+import React, { useState } from "react";
+import { BsCart4 } from "react-icons/bs";
 
 const Navbar: React.FC = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   return (
     <header className="bg-gray-800 text-white">
-      <div className="flex items-center justify-between px-4 py-3">
+      {/* Top Navbar */}
+      <div className="flex flex-wrap items-center justify-between px-4 py-3">
         {/* Logo */}
         <div className="flex items-center space-x-2">
-          <img
-            src="/logo.png" // Replace with your logo path
+          <Image
+            src="/logo.png" 
             alt="Logo"
             className="h-8 w-auto"
+            width={500}
+            height={500}
           />
         </div>
 
@@ -24,60 +33,90 @@ const Navbar: React.FC = () => {
         </div>
 
         {/* Right Section */}
-        <div className="flex items-center space-x-6">
-          <div>
+        <div className="flex items-center space-x-6 mt-4 md:mt-0">
+          <div><Link href="/signin">
             <p className="text-xs">Hello, Sign in</p>
             <p className="font-bold">Account & Lists</p>
+            </Link>
           </div>
-          <div>
+          <div> <Link href="/returnsorderspolicies">
             <p className="text-xs">Returns</p>
             <p className="font-bold">& Orders</p>
+            </Link>
           </div>
-          <div className="relative">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M3 3h18M9 3v18m6-18v18"
-              />
-            </svg>
-            <span className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full px-2">
-              3
-            </span>
+          <div>
+          <Link href="/cart">
+            <p className='text-xs'>Cart</p>
+            <p className="font-bold">
+              <BsCart4 className="h-7 w-7" />
+            </p> 
+            </Link>
           </div>
+        </div>
+
+        {/* Mobile Menu Toggle */}
+        <div className="md:hidden" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+          <svg
+            className="h-6 w-6 cursor-pointer"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+          </svg>
         </div>
       </div>
 
-      {/* Bottom Navbar */}
-      <nav className="bg-gray-700 text-sm">
+      {/* Bottom Navbar for Large Screens */}
+      <nav className="bg-gray-700 text-sm hidden md:block">
         <div className="container mx-auto px-4 py-2 flex space-x-4 overflow-x-auto">
-          <a href="#" className="hover:underline">
+          <Link href="#" className="hover:underline">
             All
-          </a>
-          <a href="#" className="hover:underline">
+          </Link>
+          <Link href="#" className="hover:underline">
             Best Sellers
-          </a>
-          <a href="#" className="hover:underline">
+          </Link>
+          <Link href="#" className="hover:underline">
             New Releases
-          </a>
-          <a href="#" className="hover:underline">
+          </Link>
+          <Link href="#" className="hover:underline">
             Customer Service
-          </a>
-          <a href="#" className="hover:underline">
+          </Link>
+          <Link href="#" className="hover:underline">
             Prime
-          </a>
-          <a href="#" className="hover:underline">
-            Today's Deals
-          </a>
+          </Link>
+          <Link href="#" className="hover:underline">
+            Today&apos;s Deals
+          </Link>
         </div>
       </nav>
+
+      {/* Mobile Menu for Small Screens */}
+      {isMobileMenuOpen && (
+        <nav className="bg-gray-700 text-sm md:hidden">
+          <div className="container mx-auto px-4 py-2 flex flex-col space-y-4">
+            <Link href="#" className="hover:underline">
+              All
+            </Link>
+            <Link href="#" className="hover:underline">
+              Best Sellers
+            </Link>
+            <Link href="#" className="hover:underline">
+              New Releases
+            </Link>
+            <Link href="#" className="hover:underline">
+              Customer Service
+            </Link>
+            <Link href="#" className="hover:underline">
+              Prime
+            </Link>
+            <Link href="#" className="hover:underline">
+              Today&apos;s Deals
+            </Link>
+          </div>
+        </nav>
+      )}
     </header>
   );
 };
