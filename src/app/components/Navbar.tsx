@@ -11,11 +11,11 @@ const Navbar: React.FC = () => {
   return (
     <header className="bg-gray-800 text-white">
       {/* Top Navbar */}
-      <div className="flex flex-wrap items-center justify-between px-4 py-3">
+      <div className="flex items-center justify-between px-4 py-3">
         {/* Logo */}
         <div className="flex items-center space-x-2">
           <Image
-            src="/logo.png" 
+            src="/logo.png"
             alt="Logo"
             className="h-8 w-auto"
             width={500}
@@ -24,7 +24,7 @@ const Navbar: React.FC = () => {
         </div>
 
         {/* Search Bar */}
-        <div className="flex-grow mx-4">
+        <div className="flex-grow mx-4 max-w-[200px] sm:max-w-[300px] md:max-w-[400px] lg:max-w-[500px]">
           <input
             type="text"
             placeholder="Search for products"
@@ -34,22 +34,24 @@ const Navbar: React.FC = () => {
 
         {/* Right Section */}
         <div className="flex items-center space-x-6 mt-4 md:mt-0">
-          <div><Link href="/signin">
-            <p className="text-xs">Hello, Sign in</p>
-            <p className="font-bold">Account & Lists</p>
-            </Link>
-          </div>
-          <div> <Link href="/returnsorderspolicies">
-            <p className="text-xs">Returns</p>
-            <p className="font-bold">& Orders</p>
+          <div>
+            <Link href="/signin">
+              <p className="text-xs">Hello, Sign in</p>
+              <p className="font-bold">Account & Lists</p>
             </Link>
           </div>
           <div>
-          <Link href="/cart">
-            <p className='text-xs'>Cart</p>
-            <p className="font-bold">
-              <BsCart4 className="h-7 w-7" />
-            </p> 
+            <Link href="/returnsorderspolicies">
+              <p className="text-xs">Returns</p>
+              <p className="font-bold">& Orders</p>
+            </Link>
+          </div>
+          <div>
+            <Link href="/cart">
+              <p className="text-xs">Cart</p>
+              <p className="font-bold">
+                <BsCart4 className="h-7 w-7" />
+              </p>
             </Link>
           </div>
         </div>

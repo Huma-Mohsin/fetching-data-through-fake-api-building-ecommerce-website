@@ -4,7 +4,7 @@ const SignInPage = () => {
   return (
     <div className="flex justify-center items-center h-screen bg-pink-50">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-2xl font-semibold mb-6">Sign-In</h2>
+        <h2 className="text-2xl font-semibold mb-6 text-center sm:text-left">Sign-In</h2>
 
         <form className="space-y-4">
           <div>

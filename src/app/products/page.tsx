@@ -46,6 +46,7 @@ const Products = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [cartItems, setCartItems] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [isCartVisible, setIsCartVisible] = useState<boolean>(false); // Track visibility of cart popup
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -65,10 +66,15 @@ const Products = () => {
 
   const handleAddToCart = (product: Product) => {
     setCartItems((prevItems) => [...prevItems, product]);
+    setIsCartVisible(true); // Show cart popup when item is added
   };
 
   const handleRemoveFromCart = (index: number) => {
     setCartItems((prevItems) => prevItems.filter((_, i) => i !== index));
+  };
+
+  const handleCloseCart = () => {
+    setIsCartVisible(false); // Close cart popup
   };
 
   if (loading) {
@@ -80,7 +86,7 @@ const Products = () => {
   }
 
   return (
-    <div className="flex">
+    <div className="relative">
       {/* Product List */}
       <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-6 p-8 bg-pink-50 flex-grow">
         {products.map((product) => (
@@ -124,86 +130,95 @@ const Products = () => {
         ))}
       </div>
 
-      {/* Cart */}
-      <div className="sticky top-0 w-full max-w-sm h-[600px] bg-pink-50 shadow-lg p-4 md:w-1/4">
-        {/* Cart Header */}
-        <div className="flex justify-between items-center p-4 border-b bg-gray-600 rounded-md">
-          <h2 className="text-sm font-semibold text-white">Shopping Cart</h2>
-        </div>
-
-        {/* Cart Items */}
-        <div className="p-2 h-[calc(100%-120px)] overflow-y-auto">
-          {cartItems.length === 0 ? (
-            <div className="text-center text-red-500 py-10">
-              <p>Your cart is empty</p>
-              <i className="fas fa-shopping-cart text-3xl"></i>
+      {/* Cart Popup */}
+      {isCartVisible && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="w-full sm:w-96 bg-white rounded-lg shadow-lg p-6">
+            <div className="flex justify-between items-center p-4 border-b bg-gray-600 rounded-md">
+              <h2 className="text-sm font-semibold text-white">Shopping Cart</h2>
+              <button
+                className="text-white text-xl"
+                onClick={handleCloseCart} // Close cart
+              >
+                ✖
+              </button>
             </div>
-          ) : (
-            <ul>
-              {cartItems.map((item, index) => (
-                <li
-                  key={index}
-                  className="flex justify-between items-center py-4 border-b"
-                >
-                  <div className="flex items-center">
-                    <Image
-                      src={item.image}
-                      alt={item.title}
-                      width={60}
-                      height={60}
-                      className="rounded shadow-sm "
-                    />
-                    <div className="ml-2">
-                      <p className="text-sm font-medium text-gray-800">
-                        {item.title}
-                      </p>
-                      <div className="flex items-center justify-between text-green-600">
-                        <p className="text-sm">${item.price.toFixed(2)}</p>
-                        <button
-                          className="text-orange-600 hover:text-red-700 text-xl ml-2"
-                          onClick={() => handleRemoveFromCart(index)}
-                        >
-                          🗑
-                        </button>
+
+            {/* Cart Items */}
+            <div className="p-2 h-[calc(100%-120px)] overflow-y-auto">
+              {cartItems.length === 0 ? (
+                <div className="text-center text-red-500 py-10">
+                  <p>Your cart is empty</p>
+                  <i className="fas fa-shopping-cart text-3xl"></i>
+                </div>
+              ) : (
+                <ul>
+                  {cartItems.map((item, index) => (
+                    <li
+                      key={index}
+                      className="flex justify-between items-center py-4 border-b"
+                    >
+                      <div className="flex items-center">
+                        <Image
+                          src={item.image}
+                          alt={item.title}
+                          width={60}
+                          height={60}
+                          className="rounded shadow-sm "
+                        />
+                        <div className="ml-2">
+                          <p className="text-sm font-medium text-gray-800">
+                            {item.title}
+                          </p>
+                          <div className="flex items-center justify-between text-green-600">
+                            <p className="text-sm">${item.price.toFixed(2)}</p>
+                            <button
+                              className="text-orange-600 hover:text-red-700 text-xl ml-2"
+                              onClick={() => handleRemoveFromCart(index)}
+                            >
+                              🗑
+                            </button>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
 
-        {/* Cart Summary */}
-        {cartItems.length > 0 && (
-          <div className="p-2 bg-pink-50 border-t">
-            <div className="flex justify-between text-gray-900 mb-2">
-              <span>Total Items:</span>
-              <span>{cartItems.length}</span>
-            </div>
-            <div className="flex justify-between bg-gray-200 text-gray-900 mb-2 rounded-lg hover:bg-gray-400">
-              <span>Total Price:</span>
-              <span>
-                ${cartItems.reduce((acc, item) => acc + item.price, 0).toFixed(2)}
-              </span>
-            </div>
-            <div className="flex flex-col space-y-2">
-              <button
-                className="bg-blue-500 text-white text-sm py-0 rounded-lg hover:bg-blue-600 transition"
-                onClick={() => alert("Proceeding to checkout!")}
-              >
-                Proceed to Checkout
-              </button>
-              <button
-                className="bg-gray-200 text-gray-900 text-sm py-0 rounded-lg hover:bg-gray-400 transition"
-                onClick={() => alert("Continuing shopping!")}
-              >
-                Continue Shopping
-              </button>
-            </div>
+            {/* Cart Summary */}
+            {cartItems.length > 0 && (
+              <div className="p-2 bg-pink-50 border-t">
+                <div className="flex justify-between text-gray-900 mb-2">
+                  <span>Total Items:</span>
+                  <span>{cartItems.length}</span>
+                </div>
+                <div className="flex justify-between bg-gray-200 text-gray-900 mb-2 rounded-lg hover:bg-gray-400">
+                  <span>Total Price:</span>
+                  <span>
+                    ${cartItems.reduce((acc, item) => acc + item.price, 0).toFixed(2)}
+                  </span>
+                </div>
+                <div className="flex flex-col space-y-2">
+                  <button
+                    className="bg-blue-500 text-white text-sm py-0 rounded-lg hover:bg-blue-600 transition"
+                    onClick={() => alert("Proceeding to checkout!")}
+                  >
+                    Proceed to Checkout
+                  </button>
+                  <button
+                    className="bg-gray-200 text-gray-900 text-sm py-0 rounded-lg hover:bg-gray-400 transition"
+                    onClick={() => alert("Continuing shopping!")}
+                  >
+                    Continue Shopping
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -14,9 +14,9 @@ const Footer: React.FC = () => {
       </div>
 
       {/* Footer Links */}
-      <div className="container mx-auto px-4 md:px-16 grid grid-cols-2 md:grid-cols-4 gap-8 py-8 text-sm">
+      <div className="container mx-auto px-4 sm:px-8 lg:px-16 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-8 py-8 text-sm">
         <div>
-          <h3 className="font-bold mb-4">Get to Know Us</h3>
+          <h3 className="font-bold mb-4 text-lg">Get to Know Us</h3>
           <ul>
             <li className="hover:underline cursor-pointer font-extralight">About Us</li>
             <li className="hover:underline cursor-pointer font-extralight">Careers</li>
@@ -25,7 +25,7 @@ const Footer: React.FC = () => {
           </ul>
         </div>
         <div>
-          <h3 className="font-bold mb-4">Make Money with Us</h3>
+          <h3 className="font-bold mb-4 text-lg">Make Money with Us</h3>
           <ul>
             <li className="hover:underline cursor-pointer font-extralight">Sell on Amazon</li>
             <li className="hover:underline cursor-pointer font-extralight">Sell Under Amazon Accelerator</li>
@@ -34,7 +34,7 @@ const Footer: React.FC = () => {
           </ul>
         </div>
         <div>
-          <h3 className="font-bold mb-4">Amazon Payment Products</h3>
+          <h3 className="font-bold mb-4 text-lg">Amazon Payment Products</h3>
           <ul>
             <li className="hover:underline cursor-pointer font-extralight">Amazon Business Card</li>
             <li className="hover:underline cursor-pointer font-extralight">Shop with Points</li>
@@ -43,7 +43,7 @@ const Footer: React.FC = () => {
           </ul>
         </div>
         <div>
-          <h3 className="font-bold mb-4">Let Us Help You</h3>
+          <h3 className="font-bold mb-4 text-lg">Let Us Help You</h3>
           <ul>
             <li className="hover:underline cursor-pointer font-extralight">COVID-19 and Amazon</li>
             <li className="hover:underline cursor-pointer font-extralight">Your Account</li>
@@ -64,4 +64,3 @@ const Footer: React.FC = () => {
 };
 
 export default Footer;
-

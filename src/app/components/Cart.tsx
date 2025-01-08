@@ -13,7 +13,6 @@ interface CartItem {
 
 export default function Cart() {
   const [cartItems, setCartItems] = useState<CartItem[]>([
-    // Example cart items; replace this with props or a global state.
     { id: 1, title: "Sample Product", price: 29.99, image: "/placeholder.png" },
   ]);
 
@@ -27,7 +26,7 @@ export default function Cart() {
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto p-8">
         <h1 className="text-2xl font-bold text-gray-800 mb-6">Your Shopping Cart</h1>
-        
+
         {cartItems.length === 0 ? (
           <div className="text-center">
             <p className="text-lg text-gray-500">Your cart is empty.</p>
@@ -37,7 +36,7 @@ export default function Cart() {
           </div>
         ) : (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {cartItems.map((item, index) => (
                 <div key={item.id} className="bg-white rounded-lg shadow p-6 flex flex-col md:flex-row">
                   <div className="flex-shrink-0">
@@ -64,15 +63,15 @@ export default function Cart() {
             </div>
 
             <div className="mt-6 bg-gray-100 p-6 rounded-lg shadow">
-              <div className="flex justify-between mb-4">
+              <div className="flex flex-col sm:flex-row justify-between mb-4">
                 <span className="text-gray-600">Total Items:</span>
                 <span>{cartItems.length}</span>
               </div>
-              <div className="flex justify-between font-bold text-gray-800 mb-4">
+              <div className="flex flex-col sm:flex-row justify-between font-bold text-gray-800 mb-4">
                 <span>Total Price:</span>
                 <span>${totalPrice}</span>
               </div>
-              <div className="flex space-x-4">
+              <div className="flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0">
                 <button
                   className="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
                   onClick={() => alert("Proceeding to checkout!")}
